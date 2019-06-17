@@ -1,5 +1,5 @@
 [package]
-name = "ron"
+name = "rond"
 version = "0.5.1"
 license = "MIT/Apache-2.0"
 keywords = ["parser", "serde", "serialization"]
@@ -8,16 +8,15 @@ authors = [
 	"Thomas Schaller <torkleyy@gmail.com>",
 ]
 edition = "2018"
-description = "Rusty Object Notation"
+description = "Rusty Object Notation in Debug format"
 categories = ["encoding"]
 readme = "README.md"
-homepage = "https://github.com/ron-rs/ron"
-repository = "https://github.com/ron-rs/ron"
-documentation = "https://docs.rs/ron/"
+homepage = "https://github.com/vlisivka/rond"
+repository = "https://github.com/vlisivka/rond"
 exclude = ["bors.toml", ".travis.yml"]
 
 [lib]
-name = "ron"
+name = "rond"
 
 [dependencies]
 base64 = "0.10"

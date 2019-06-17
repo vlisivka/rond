@@ -177,7 +177,7 @@ impl Hash for Number {
 /// wrapped in `Number` are equals to each other and are less then any other
 /// floating value. It is not the case for underlying `f64` values itself.
 /// ```
-/// use ron::value::Number;
+/// use rond::value::Number;
 /// assert!(Number::new(std::f64::NAN) < Number::new(std::f64::NEG_INFINITY));
 /// assert_eq!(Number::new(std::f64::NAN), Number::new(std::f64::NAN));
 /// ```

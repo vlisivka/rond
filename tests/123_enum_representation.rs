@@ -1,8 +1,8 @@
 use std::fmt::Debug;
 use std::cmp::PartialEq;
 use serde::{Serialize, Deserialize};
-use ron::ser::to_string;
-use ron::de::from_str;
+use rond::ser::to_string;
+use rond::de::from_str;
 
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 enum Inner {

@@ -1,5 +1,5 @@
 /*!
-RON is a simple config format which looks similar to Rust syntax.
+ROND is a simple format, produced by Debug (AKA {:?}) formatter.
 
 ## Features
 
@@ -20,9 +20,9 @@ RON is a simple config format which looks similar to Rust syntax.
 ## Syntax example
 
 ```rust,ignore
-Game(
+Game {
     title: "Hello, RON!",
-    level: Level( // We could just leave the `Level` out
+    level: Level {
         buildings: [
             (
                 size: (10, 20),
@@ -36,12 +36,12 @@ Game(
             ),
         ],
         characters: {
-            "guy": (
+            "guy": {
                 friendly: true,
-            ),
+            },
         },
-    ),
-)
+    },
+}
 ```
 
 ## Usage

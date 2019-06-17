@@ -1,4 +1,4 @@
-use ron::de::from_str;
+use rond::de::from_str;
 
 #[test]
 fn test_char() {

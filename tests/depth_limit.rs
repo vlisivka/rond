@@ -48,11 +48,11 @@ fn depth_limit() {
         array: vec![(); 3],
     };
 
-    let pretty = ron::ser::PrettyConfig::new()
+    let pretty = rond::ser::PrettyConfig::new()
         .with_depth_limit(2)
         .with_separate_tuple_members(true)
         .with_enumerate_arrays(true);
-    let s = ron::ser::to_string_pretty(&data, pretty);
+    let s = rond::ser::to_string_pretty(&data, pretty);
 
     assert_eq!(s, Ok(EXPECTED.to_string()));
 }

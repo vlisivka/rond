@@ -1,5 +1,5 @@
 #[cfg(feature = "indexmap")]
-use ron::{de::from_str, Value};
+use rond::{de::from_str, Value};
 
 #[test]
 #[cfg(feature = "indexmap")]

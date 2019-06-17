@@ -1,4 +1,4 @@
-use ron::de::{from_str, Error as RonErr, ParseError, Position};
+use rond::de::{from_str, Error as RonErr, ParseError, Position};
 
 #[test]
 fn test_simple() {

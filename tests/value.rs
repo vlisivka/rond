@@ -1,4 +1,4 @@
-use ron::value::{Map, Number, Value};
+use rond::value::{Map, Number, Value};
 use serde::Serialize;
 
 #[test]
@@ -73,7 +73,7 @@ fn seq() {
 
 #[test]
 fn unit() {
-    use ron::de::{Error, ParseError, Position};
+    use rond::de::{Error, ParseError, Position};
 
     assert_eq!(Value::from_str("()"), Ok(Value::Unit));
     assert_eq!(Value::from_str("Foo"), Ok(Value::Unit));
@@ -94,7 +94,7 @@ struct Scene2 {
 
 #[test]
 fn roundtrip() {
-    use ron::{de::from_str, ser::to_string};
+    use rond::{de::from_str, ser::to_string};
 
     {
         let s = to_string(&Scene2 {
