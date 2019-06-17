@@ -237,9 +237,9 @@ mod tests {
         assert_eq!(
             eval(
                 "Some([
-    Room ( width: 20, height: 5, name: \"The Room\" ),
+    Room { width: 20, height: 5, name: \"The Room\" },
 
-    (
+    {
         width: 10,
         height: 10,
         name: \"Another room\",
@@ -247,8 +247,8 @@ mod tests {
             \"Enemy1\": 3,
             \"Enemy2\": 5,
             \"Enemy3\": 7,
-        },
-    ),
+        }
+    },
 ])"
             ),
             Value::Option(Some(Box::new(Value::Seq(vec![

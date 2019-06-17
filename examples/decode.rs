@@ -32,7 +32,7 @@ const CONFIG: &str = "
 // Note that block comments can not be started in a line comment
 // (Putting a /* here will have no effect)
 
-(
+{
     boolean: true,
     float: 8.2,
     map: {
@@ -43,13 +43,13 @@ const CONFIG: &str = "
         5: '2',
         6: '3',
     },
-    nested: Nested(
+    nested: Nested {
         a: \"Decode me!\",
         b: 'z',
-    ),
+    },
     option: Some(\t  \"Weird formatting!\" \n\n ),
     tuple: (3 /*(2 + 1)*/, 7 /*(2 * 5 - 3)*/),
-)";
+}";
 
 fn main() {
     let config: Config = match from_str(CONFIG) {

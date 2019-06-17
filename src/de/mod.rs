@@ -90,7 +90,7 @@ impl<'de> Deserializer<'de> {
     }
 
     /// Called from `deserialze_any` when a struct was detected. Decides if
-    /// there is a unit, tuple or usual struct and deserializes it
+    /// there is a unit or usual struct and deserializes it
     /// accordingly.
     ///
     /// This method assumes there is no identifier left.
@@ -101,16 +101,38 @@ impl<'de> Deserializer<'de> {
         // Create a working copy
         let mut bytes = self.bytes;
 
-        match bytes.consume("(") {
+        match bytes.consume("{") {
             true => {
                 bytes.skip_ws()?;
 
-                match bytes.check_tuple_struct()? {
-                    // first argument is technically incorrect, but ignored anyway
-                    true => self.deserialize_tuple(0, visitor),
-                    // first two arguments are technically incorrect, but ignored anyway
-                    false => self.deserialize_struct("", &[], visitor),
-                }
+                // first two arguments are technically incorrect, but ignored anyway
+                self.deserialize_struct("", &[], visitor)
+//                match bytes.check_map()? {
+//                    // first argument is technically incorrect, but ignored anyway
+//                    true => self.deserialize_map(visitor),
+//                    // first two arguments are technically incorrect, but ignored anyway
+//                    false => self.deserialize_struct("", &[], visitor),
+//                }
+            }
+            false => visitor.visit_unit(),
+        }
+    }
+
+    /// Called from `deserialze_any` when a tuple was detected. Decides if
+    /// there is a unit or tuple and deserializes itaccordingly.
+    ///
+    /// This method assumes there is no identifier left.
+    fn handle_tuple<V>(&mut self, visitor: V) -> Result<V::Value>
+    where
+        V: Visitor<'de>,
+    {
+        // Create a working copy
+        let mut bytes = self.bytes;
+
+        match bytes.consume("(") {
+            true => {
+                bytes.skip_ws()?;
+                self.deserialize_tuple(0, visitor)
             }
             false => visitor.visit_unit(),
         }
@@ -152,9 +174,10 @@ impl<'de, 'a> de::Deserializer<'de> for &'a mut Deserializer<'de> {
         }
 
         match self.bytes.peek_or_eof()? {
-            b'(' => self.handle_any_struct(visitor),
+            b'{' => self.handle_any_struct(visitor),
+            b'(' => self.handle_tuple(visitor),
             b'[' => self.deserialize_seq(visitor),
-            b'{' => self.deserialize_map(visitor),
+            //b'{' => self.deserialize_map(visitor),
             b'0'..=b'9' | b'+' | b'-' => {
                 let any_num: AnyNum = self.bytes.any_num()?;
 
@@ -463,11 +486,11 @@ impl<'de, 'a> de::Deserializer<'de> for &'a mut Deserializer<'de> {
 
         self.bytes.skip_ws()?;
 
-        if self.bytes.consume("(") {
-            let value = visitor.visit_map(CommaSeparated::new(b')', &mut self))?;
+        if self.bytes.consume("{") {
+            let value = visitor.visit_map(CommaSeparated::new(b'}', &mut self))?;
             self.bytes.comma()?;
 
-            if self.bytes.consume(")") {
+            if self.bytes.consume("}") {
                 Ok(value)
             } else {
                 self.bytes.err(ParseError::ExpectedStructEnd)
